@@ -107,7 +107,4 @@ def ar():
         results=total_results,
         name=search.inp.data,
         image= image 
-        ) 
-
-if __name__ == '__main__':
-    app.run(debug=True, port=9000)
+        )
