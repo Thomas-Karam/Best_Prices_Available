@@ -1,0 +1,95 @@
+{% extends "Base.html" %}
+{% block content %}
+    <nav>
+        <a href="#search" class="fas fa-search"> Search</a>
+        <a href="#about" class="fas fa-comment"> About Us</a>
+        <a href="{{ link_a }}" class="fas fa-language"> ar</a>
+    </nav>
+
+
+
+    <section id="home">
+        <div class="text">
+            <h1>Welcome to <span>BP</span></h1>
+            <h1>Find the best prices in the world</h1>
+            <a href="#search" class="fas fa-search"> Search now</a>
+        </div>
+        
+        <div class="image">
+            <img src="static/image/logo.png" alt="logo">
+        </div>
+    </section>
+
+
+
+    <section id="search">
+        <form class="search" method="post" action="">
+            <legend>Best Price</legend>
+            {{search.inp(placeholder="Enter the item to search for", id="inp")}}
+            {{search.sub(value="Search")}}
+        </form>
+        
+        <div class="result">
+            {% if results %}
+                <div class="container">
+                    <div class="image">
+                        <img src="{{ image }}" alt="Product Image" style="height: auto; border-radius: 10px;">
+                    </div>
+                    <div class="comparative">
+                        <div class="the_best">
+                            <p>{{ name }}</p>
+                            <div class="best">
+                                <div>
+                                    <span class="fas fa-star"> Best Price</span>
+                                    <span class="fas fa-home"> {{ results[0]['from'] }} </span>
+                                </div>
+                                <a href="{{ results[0]['link'] }}" target="_blank" class="fas fa-shopping-cart"> Buy Now</a>
+                            </div>
+                            <hr style="width: 95%; border: 1px solid black;">
+                        </div>
+                        {% for result in results %}
+                            <div class="show">
+                                <p> {{ result['description'] }} </p>
+                                <div class="info">
+                                    <span class="fas fa-dollar"> {{ result['price'] }} </span><br>
+                                    <span class="fas fa-star"> {{ result['rate'].text }} </span><br>
+                                    <span class="fas fa-home"> {{ result['from'] }} </span><br>
+                                    <a href="{{ result['link'] }}" target="_blank" class="fas fa-shopping-cart"> Buy Now</a>
+                                </div>
+                                <hr style="width: 95%; border: 1px solid black;">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="not">
+                    <p>You're not looking for anything yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+
+
+    <section id="about">
+        <div class="about-us">
+            <h1>About Us</h1>
+            <pre>
+In today, online shopping has become a cornerstone of convenience.
+With platforms like Amazon and Jumia offering millions of products,
+finding the right deal can often feel like searching for a needle 
+in a haystack. That’s where <span> Best Price </span>comes in your
+go-to tool for discovering the lowest prices for your favorite 
+products across major e-commerce platforms.
+            </pre>
+        </div>
+
+        <form class="message" method="post" action="">
+            <legend>Comments </legend>
+            {{message.name(placeholder="Name")}}
+            {{message.email(placeholder="E-mail")}}
+            {{message.message(placeholder="Message", id="mess")}}
+            {{message.send(value="Send")}}
+        </form>
+    </section>
+{% endblock content %}

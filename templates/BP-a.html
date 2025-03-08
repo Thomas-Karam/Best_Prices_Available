@@ -1,0 +1,95 @@
+{% extends "Base.html" %}
+{% block content %}
+    <nav>
+        <a href="#search" class="fas fa-search"> بحث</a>
+        <a href="#about" class="fas fa-comment"> عنا</a>
+        <a href="{{ link_e }}" class="fas fa-language"> en</a>
+    </nav>
+
+    
+
+    <section id="home">
+        <div class="text">
+            <h1>مرحبا بكم في <span>BP</span></h1>
+            <h1>ابحث عن أفضل الأسعار في العالم</h1>
+            <a href="#search" class="fas fa-search"> بحث الان</a>
+        </div>
+    
+        <div class="image">
+            <img src="static/image/logo.png" alt="">
+        </div>
+    </section>
+
+
+
+    <section id="search">
+        <form class="search" method="post" action="">
+            <legend>أفضل سعر</legend>
+            {{search.inp(placeholder="ادخل المنتج الذي تريد البحث عنها", id="inp")}}
+            {{search.sub(value="بحث")}}
+        </form>
+
+        <div class="result">
+            {% if results %}
+            <div class="container">
+                <div class="image">
+                    <img src="{{ image }}" alt="Product Image" style="height: auto; border-radius: 10px;">
+                </div>
+                <div class="comparative">
+                    <div class="the_best">
+                        <p>{{ name }}</p>
+                        <div class="best">
+                            <div>
+                                <span class="fas fa-star"> أفضل سعر</span>
+                                <span class="fas fa-home"> {{ results[0]['from'] }} </span>
+                            </div>
+                            <a href="{{ results[0]['link'] }}" target="_blank" class="fas fa-shopping-cart"> شراء الان</a>
+                        </div>
+                        <hr style="width: 95%; border: 1px solid black;">
+                    </div>
+                    {% for result in results %}
+                    <div class="show">
+                        <p> {{ result['description'] }} </p>
+                        <div class="info">
+                            <span class="fas fa-dollar"> {{ result['price'] }} </span><br>
+                            <span class="fas fa-star"> {{ result['rate'].text }} </span><br>
+                            <span class="fas fa-home"> {{ result['from'] }} </span><br>
+                            <a href="{{ result['link'] }}" target="_blank" class="fas fa-shopping-cart"> شراءالان</a>
+                        </div>
+                        <hr style="width: 95%; border: 1px solid black;">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="not">
+                <p>أنت لم تبحث عن أي شى حتي الان</p>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+
+
+    <section id="about">
+        <div class="about-us">
+            <h1>عنا</h1>
+            <pre>
+ في يومنا هذا، أصبح التسوق عبر الإنترنت حجر الزاوية للراحة.
+ ومع منصات مثل أمازون وجوميا التي تقدم ملايين المنتجات، فإن
+ العثور على الصفقة المناسبة قد يشبه في كثير من الأحيان البحث 
+ عن إبرة في كومة قش. وهنا يأتي دور <span>Best Price</span> 
+ كأداة أساسيةلاكتشاف أدنى الأسعار لمنتجاتك المفضلة عبر منصات 
+ التجارة الإلكترونية الرئيسية.
+            </pre>
+        </div>
+
+        <form class="message" method="post" action="">
+            <legend>الرسالة</legend>
+            {{message.name(placeholder="الاسم")}}
+            {{message.email(placeholder="الايميل")}}
+            {{message.message(placeholder="الرسالة", id="mess")}}
+            {{message.send(value="ابعت")}}
+        </form>
+    </section>
+{% endblock content %}
